@@ -1,7 +1,13 @@
-import React from "react";
+import React, { useState } from "react";
 import { Link } from "react-router-dom";
+import { connect } from "react-redux";
+import { searchUsersReq } from "../reducers/user/action";
+const Search = (props) => {
+    const { userList = [], searchUsers } = props;
 
-const Search = () => {
+    //이름으로 검색을 할 예정
+    const [name, setName] = useState("");
+    console.log(props);
     return (
         <div>
             <div>
@@ -9,8 +15,10 @@ const Search = () => {
             </div>
             검색페이지
             <div>
-                <input />
-                <button>검색</button>
+                <input value={name} onChange={(e) => setName(e.target.value)} />
+                <button onClick={() => searchUsers(`?name=${name}`)}>
+                    검색
+                </button>
                 <div>
                     <table>
                         <thead>
@@ -33,4 +41,15 @@ const Search = () => {
         </div>
     );
 };
-export default Search;
+
+const mapDispatchToProps = (dispatch) => {
+    return {
+        searchUsers: (params) => dispatch(searchUsersReq(params)),
+    };
+};
+const mapStateToProps = (state) => {
+    return {
+        userList: state.userReducer.userList,
+    };
+};
+export default connect(mapStateToProps, mapDispatchToProps)(Search);

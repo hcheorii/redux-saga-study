@@ -1,8 +1,7 @@
-import Search from "../../components/search";
 import {
     SEARCH_USERS_FAIL,
     SEARCH_USERS_REQ,
-    SEARCH_USERS_SUCEESS,
+    SEARCH_USERS_SUCCESS,
 } from "./action";
 
 const InitialState = {
@@ -17,7 +16,7 @@ const userReducer = (state = InitialState, action) => {
                 error: null,
             };
 
-        case SEARCH_USERS_SUCEESS:
+        case SEARCH_USERS_SUCCESS:
             return {
                 ...state,
                 userList: action.data,
